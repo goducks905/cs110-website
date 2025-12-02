@@ -1,0 +1,71 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Body formatting */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Background Image */
+body:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Background_Image.jpg'); /* Make sure this file is in your folder */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Sections formatting */
+section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Adds Space for bullected lists (Dots) */
+#skills ul {
+    padding-left: 40px;      
+    list-style-position: outside;
+    }
+/* Adds Space for numbered lists */
+    #projects ol {
+    padding-left: 40px;       /* adjust (e.g. 24px, 32px, 40px) */
+    list-style-position: outside;
+}
+/* Centers Contact Info */
+header p {
+    text-align: center;
+}    
+/* Centers Name */
+header {
+    text-align: center;
+}
+/* Centers Profile Picture */
+header img {
+    display: block;
+    margin: 0 auto 10px;
+}
+pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 15px;
+        }

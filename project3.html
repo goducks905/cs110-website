@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 3</title>
+</head>
+<body>
+
+<h1>Project 3: Refactored Neighborhood Scene</h1>
+
+<p>
+    For Project 3, I refactored my Project 2 code to make it cleaner, more reusable, 
+    and easier to extend. I created functions like <code>draw_house</code>, 
+    <code>draw_tree</code>, <code>draw_cloud</code>, and <code>draw_mailbox</code> so I could 
+    build a larger neighborhood scene. My enhanced scene includes two houses, 
+    two mailboxes, multiple clouds, three trees, and a repositioned sun.
+</p>
+
+<h2>Screenshot</h2>
+<img src="Project3.png" width="600" alt="Project 3 Screenshot">
+
+<h2>Code</h2>
+
+<pre><code>
+'''
+Nikolas Argyres
+CS 110, Fall 2025 Project 3
+The scene screated is two houses with red roofs, a yellow sun, three green trees, 
+three white clouds, two maroon doors, two grey mailboxes with red tops, all set against 
+a sky-blue background.
+
+Improvements and Updates:
+
+Added a second house and mailbox to make the neighborhood scene more populated and balanced.
+Adjusted mailbox positions so they appear naturally beside each house.
+Added two more clouds and repositioned them for better sky coverage without blocking the sun.
+Moved the sun farther to the right so it remains clearly visible.
+Ensured all shapes (houses, trees, mailboxes) are upright by resetting turtle orientation.
+Overall, the scene now feels fuller, livelier, and more realistic with more elements and better placement.
+
+The scene was refactored into functions to make the program more organized, reusable, and easier to modify.
+This structure allows new elements (like an extra house, more clouds, or repositioned sun) to be added 
+with simple function calls instead of repeating long blocks of code.
+'''
+
+import turtle
+import math
+
+def setup_turtle():
+    """Initialize turtle with standard settings"""
+    t = turtle.Turtle()
+    t.speed(0)  # Fastest speed
+    screen = turtle.Screen()
+    screen.title("Turtle Graphics Assignment")
+    return t, screen
+
+def draw_rectangle(t, width, height, fill_color=None):
+    """Draw a rectangle with optional fill"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    for _ in range(2):
+        t.forward(width)
+        t.right(90)
+        t.forward(height)
+        t.right(90)
+    if fill_color:
+        t.end_fill()
+
+def draw_square(t, size, fill_color=None):
+    """Draw a square with optional fill"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    for _ in range(4):
+        t.forward(size)
+        t.right(90)
+    if fill_color:
+        t.end_fill()
+
+def draw_triangle(t, size, fill_color=None):
+    """Draw an equilateral triangle with optional fill"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    for _ in range(3):
+        t.forward(size)
+        t.left(120)
+    if fill_color:
+        t.end_fill()
+
+def draw_circle(t, radius, fill_color=None):
+    """Draw a circle with optional fill"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    t.circle(radius)
+    if fill_color:
+        t.end_fill()
+
+def draw_polygon(t, sides, size, fill_color=None):
+    """Draw a regular polygon with given number of sides"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    angle = 360 / sides
+    for _ in range(sides):
+        t.forward(size)
+        t.right(angle)
+    if fill_color:
+        t.end_fill()
+
+def draw_curve(t, length, curve_factor, segments=10, fill_color=None):
+    """Draw a curved line using small line segments"""
+    if fill_color:
+        t.fillcolor(fill_color)
+        t.begin_fill()
+    segment_length = length / segments
+    original_heading = t.heading()
+    for i in range(segments):
+        angle = curve_factor * math.sin(math.pi * i / segments)
+        t.right(angle)
+        t.forward(segment_length)
+        t.left(angle)
+    t.setheading(original_heading)
+    if fill_color:
+        t.end_fill()
+
+def jump_to(t, x, y):
+    """Move turtle without drawing"""
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+
+def draw_house(t, x, y, size=100, base_color="burlywood4", roof_color="red", door_color="maroon"):
+    """Draw a complete house"""
+    jump_to(t, x, y)
+    t.setheading(0)
+    draw_square(t, size, fill_color=base_color)
+
+    jump_to(t, x, y)
+    t.setheading(0)
+    draw_triangle(t, size, fill_color=roof_color)
+
+    door_w = size * 0.3
+    door_h = size * 0.5
+    door_x = x + (size - door_w) / 2
+    door_y = y - door_h
+    jump_to(t, door_x, door_y)
+    t.setheading(0)
+    draw_rectangle(t, door_w, door_h, fill_color=door_color)
+
+def draw_tree(t, x, y, trunk_width=40, trunk_height=100, foliage_radius=50, trunk_color="sienna", foliage_color="green"):
+    """Draw a tree"""
+    jump_to(t, x, y)
+    t.setheading(0)
+    draw_rectangle(t, trunk_width, trunk_height, fill_color=trunk_color)
+
+    foliage_x = x + trunk_width / 2
+    foliage_y = y - (foliage_radius * 0.4)
+    jump_to(t, foliage_x, foliage_y)
+    t.setheading(0)
+    draw_circle(t, foliage_radius, fill_color=foliage_color)
+
+def draw_cloud(t, x, y, radius=55, color="white"):
+    """Draw a cloud made of 3 circles"""
+    jump_to(t, x, y)
+    draw_circle(t, radius, fill_color=color)
+
+    jump_to(t, x + radius, y - radius * 0.7)
+    draw_circle(t, radius, fill_color=color)
+
+    jump_to(t, x - radius, y - radius * 0.7)
+    draw_circle(t, radius, fill_color=color)
+
+def draw_mailbox(t, x, y, post_width=5, post_height=30, box_sides=5, box_size=20, post_color="grey", box_color="red"):
+    """Draw a mailbox"""
+    jump_to(t, x, y)
+    t.setheading(0)
+    draw_rectangle(t, post_width, post_height, fill_color=post_color)
+
+    jump_to(t, x + (post_width / 2) + 2, y + post_height)
+    t.setheading(-36)
+    draw_polygon(t, box_sides, box_size, fill_color=box_color)
+    t.setheading(0)
+
+def draw_sun(t, x, y, radius=50, color="yellow"):
+    """Draw the sun"""
+    jump_to(t, x, y)
+    draw_circle(t, radius, fill_color=color)
+
+def draw_scene(t):
+    """Draw the full neighborhood scene"""
+    screen = t.getscreen()
+    screen.bgcolor("skyblue")
+
+    draw_house(t, -200, -200, 100)
+    draw_mailbox(t, -80, -270)
+
+    draw_house(t, -380, -200, 100)
+    draw_mailbox(t, -260, -270)
+
+    draw_sun(t, 300, 220)
+
+    draw_tree(t, 130, -200)
+    draw_tree(t, 250, -200)
+    draw_tree(t, 10, -200)
+
+    draw_cloud(t, -300, 200)
+    draw_cloud(t, -100, 200)
+    draw_cloud(t, 100, 200)
+
+def main():
+    t, screen = setup_turtle()
+    draw_scene(t)
+    screen.mainloop()
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<a href="index.html">← Back to Home</a>
+
+</body>
+</html>

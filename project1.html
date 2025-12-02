@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 1</title>
+</head>
+<body>
+
+<h1>Project 1: Turtle Graphics Scene</h1>
+
+<p>
+    For this project, I created a Turtle graphics scene using variables, loops, 
+    conditionals, and a background color. My scene included a house, a roof, a tree, 
+    a sun, and a sky background. This was my first full Turtle drawing project.
+</p>
+
+<h2>Screenshot</h2>
+<img src="Project1.png" width="600" alt="Project 1 Screenshot">
+
+<h2>Code</h2>
+<pre><code>
+# From Python's turtle Library
+
+from turtle import *
+
+current = position()
+print(current)
+
+bgcolor("blue")
+
+fast = True
+if fast:
+    speed(10)
+else:
+    speed(1)
+
+penup()
+goto(0, -200)
+pendown()
+color("burlywood4")
+begin_fill()
+for i in range(4):
+    forward(100)
+    right(90)
+end_fill()
+
+penup()
+goto(0, -200)
+pendown()
+color("red")
+begin_fill()
+for i in range(3):
+    forward(100)
+    left(120)
+end_fill()
+
+penup()
+goto(180,180)
+pendown()
+color("yellow")
+begin_fill()
+circle(50)
+end_fill()
+
+penup()
+goto(50,-300)
+pendown()
+color("brown")
+begin_fill()
+for i in range(2):
+    forward(30)
+    left(90)
+    forward(50)
+    left(90)
+end_fill()
+
+penup()
+goto(200, -300)
+pendown()
+color("saddle brown")
+begin_fill()
+for i in range(2):
+    forward(20)
+    left(90)
+    forward(40)
+    left(90)
+end_fill()
+
+penup()
+goto(210, -260)
+pendown()
+color("green")
+begin_fill()
+circle(50)
+end_fill()
+
+print(current)
+
+done()
+</code></pre>
+
+<a href="index.html">← Back to Home</a>
+
+</body>
+</html>
